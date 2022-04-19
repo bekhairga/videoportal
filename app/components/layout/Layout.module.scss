@@ -6,6 +6,11 @@ $bar-width: 20%;
 		@apply fixed top-0 bottom-0 overflow-y-scroll;
 		width: $bar-width;
 		max-width: 350px;
+		&::-webkit-scrollbar{
+			display: none;
+		}
+		-ms-overflow-style: none;
+  		scrollbar-width: none;
 	}
 	> div:first-child {
 		@apply left-0 border-r border-r-grey-800;
