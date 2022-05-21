@@ -13,7 +13,7 @@ const PopularMovies: FC = () => {
 		MovieService.getMostPopular
 	)
 	return isLoading ? (
-		<div mt-11>
+		<div className="mt-11">
 			<SkeletonLoader count={3} className="h-28 mb-4" />
 		</div>
 	) : (
