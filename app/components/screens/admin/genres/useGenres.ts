@@ -27,7 +27,7 @@ export const useGenres = () => {
 					(genre): ITableItem => ({
 						_id: genre._id,
 						editUrl: getAdminUrl(`genre/edit/${genre._id}`),
-						items: [genre.name, convertMongoDate(genre.slug)],
+						items: [genre.name, genre.slug],
 					})
 				),
 			onError: (error) => {
