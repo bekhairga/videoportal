@@ -1,50 +1,50 @@
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
-import { convertMongoDate } from 'utils/date/convertMongoDate'
+import { getGenresList } from 'utils/movie/getGenresListEach'
 import { toastError } from 'utils/toastError'
 
-import {
-	IAdminTableItem,
-	ITableItem,
-} from '@/components/ui/admin-table/admin-table.interface'
+import { ITableItem } from '@/components/ui/admin-table/admin-table.interface'
 
 import { MovieService } from '@/services/movie.service'
-import { UserService } from '@/services/user.service'
 
 import { getAdminUrl } from '@/config/url.config'
 
-import { useDebounce } from '../../../../../../hooks/useDebounce'
+import { useDebounce } from '../../../../../hooks/useDebounce'
 
-export const useUsers = () => {
+export const useMovies = () => {
 	const [searchTerm, setSearchTern] = useState('')
 	const debouncedSearch = useDebounce(searchTerm, 500)
 	const queryData = useQuery(
-		['users list', debouncedSearch],
-		() => UserService.getAll(debouncedSearch),
+		['Movies list', debouncedSearch],
+		() => MovieService.getAll(debouncedSearch),
 		{
 			select: ({ data }) =>
 				data.map(
-					(user): ITableItem => ({
-						_id: user._id,
-						editUrl: getAdminUrl(`user/edit/${user._id}`),
-						items: [user.email, convertMongoDate(user.createdAt)],
+					(movie): ITableItem => ({
+						_id: movie._id,
+						editUrl: getAdminUrl(`movie/edit/${movie._id}`),
+						items: [
+							movie.title,
+							getGenresList(movie.genres),
+							String(movie.rating),
+						],
 					})
 				),
 			onError: (error) => {
-				toastError(error, 'user list')
+				toastError(error, 'movie list')
 			},
 		}
 	)
 	const { mutateAsync: deleteAsync } = useMutation(
-		'delete user',
-		(userId: string) => UserService.deleteUser(userId),
+		'delete movie',
+		(movieId: string) => MovieService.deleteMovie(movieId),
 		{
 			onError: (error) => {
-				toastError(error, 'delete user')
+				toastError(error, 'delete movie')
 			},
 			onSuccess: () => {
-				toastr.success('delete user', 'deleting user was successful'),
+				toastr.success('delete movie', 'deleting movie was successful'),
 					queryData.refetch()
 			},
 		}
