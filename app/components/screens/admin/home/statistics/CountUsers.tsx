@@ -6,7 +6,7 @@ import SkeletonLoader from '@/components/ui/SkeletonLoader'
 
 import { AdminService } from '@/services/admin.service'
 
-import styles from '../Admin.module.scss'
+import styles from '../../Admin.module.scss'
 
 const CountUsers: FC = () => {
 	const { isLoading, data: response } = useQuery('Count users', () =>

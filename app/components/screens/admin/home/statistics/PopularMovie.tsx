@@ -13,7 +13,7 @@ import { MovieService } from '@/services/movie.service'
 
 import { getMovieUrl } from '@/config/url.config'
 
-import styles from '../Admin.module.scss'
+import styles from '../../Admin.module.scss'
 
 const CountUsers: FC = () => {
 	const { isLoading, data: movie } = useQuery(
