@@ -14,13 +14,15 @@ import Heading from '@/components/ui/heading/Heading'
 
 import formStyles from '@/ui/form-elements/admin-form.module.scss'
 
-import { IGenreEditInput } from './genre-edit.interface'
-import { useGenreEdit } from './useGenreEdit'
+import { IUserEditInput } from '../../home/users/edit/user-edit.interface'
+
+import { IActorEditInput } from './actor-edit.interface'
+import { useActorEdit } from './useActorEdit'
 
 const DynamicTextEditor = dynamic(() => import('@/components/ui/TextEditor'), {
 	ssr: false,
 })
-const GenreEdit: FC = () => {
+const ActorEdit: FC = () => {
 	const {
 		handleSubmit,
 		register,
@@ -28,15 +30,15 @@ const GenreEdit: FC = () => {
 		setValue,
 		getValues,
 		control,
-	} = useForm<IGenreEditInput>({
+	} = useForm<IActorEditInput>({
 		mode: 'onChange',
 	})
-	const { isLoading, onSubmit } = useGenreEdit(setValue)
+	const { isLoading, onSubmit } = useActorEdit(setValue)
 
 	return (
-		<Meta title="Edit Genre">
+		<Meta title="Edit Actor">
 			<AdminNavigation />
-			<Heading title="Edit Genre" />
+			<Heading title="Edit Actor" />
 			<form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
 				{isLoading ? (
 					<SkeletonLoader count={3} />
@@ -49,47 +51,29 @@ const GenreEdit: FC = () => {
 								error={errors.name}
 								style={{ width: '31%' }}
 							/>
-							<div style={{ width: '31%' }}>
-								<SlugField
-									generate={() => {
-										setValue('slug', generateSlug(getValues('name')))
-									}}
-									register={register}
-									error={errors.slug}
-								/>
-							</div>
-							<Field
-								{...register('icon', { required: 'icon is required' })}
-								placeholder={'icon'}
-								error={errors.icon}
-								style={{ width: '31%' }}
-							/>
-						</div>
 
-						<Controller
-							name="description"
+							<SlugField
+								generate={() => {
+									setValue('slug', generateSlug(getValues('name')))
+								}}
+								register={register}
+								error={errors.slug}
+							/>
+							{/* <Controller
+							name="photo"
 							control={control}
 							// defaultValue={}
-							render={({
-								field: { value, onChange },
-								fieldState: { error },
-							}) => (
-								<DynamicTextEditor
-									onChange={onChange}
-									value={value}
-									error={error}
-									placeholder="Description"
-								/>
-							)}
+							// render={({
+							// 	field: { value, onChange },
+							// 	fieldState: { error },
+							// }) => (
+							//   //upload photo
+							// )}
 							rules={{
-								validate: {
-									required: (v) =>
-										(v && stripHtml(v).result.length > 0) ||
-										'Description required',
-								},
+								required: 'Photo is required!',
 							}}
-						/>
-
+						/> */}
+						</div>
 						<Button>Update</Button>
 					</>
 				)}
@@ -97,4 +81,4 @@ const GenreEdit: FC = () => {
 		</Meta>
 	)
 }
-export default GenreEdit
+export default ActorEdit

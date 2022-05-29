@@ -20,7 +20,7 @@ import { useGenreEdit } from './useGenreEdit'
 const DynamicTextEditor = dynamic(() => import('@/components/ui/TextEditor'), {
 	ssr: false,
 })
-const GenreEdit: FC = () => {
+const UserEdit: FC = () => {
 	const {
 		handleSubmit,
 		register,
@@ -41,60 +41,53 @@ const GenreEdit: FC = () => {
 				{isLoading ? (
 					<SkeletonLoader count={3} />
 				) : (
-					<>
-						<div className={formStyles.fields}>
-							<Field
-								{...register('name', { required: 'Name is required' })}
-								placeholder={'Name'}
-								error={errors.name}
-								style={{ width: '31%' }}
-							/>
-							<div style={{ width: '31%' }}>
-								<SlugField
-									generate={() => {
-										setValue('slug', generateSlug(getValues('name')))
-									}}
-									register={register}
-									error={errors.slug}
-								/>
-							</div>
-							<Field
-								{...register('icon', { required: 'icon is required' })}
-								placeholder={'icon'}
-								error={errors.icon}
-								style={{ width: '31%' }}
+					<div className={formStyles.fields}>
+						<Field
+							{...register('name', { required: 'Name is required' })}
+							placeholder={'Name'}
+							error={errors.name}
+							style={{ width: '31%' }}
+						/>
+						<div style={{ width: '31%' }}>
+							<SlugField
+								generate={() => {
+									setValue('slug', generateSlug(getValues('name')))
+								}}
+								register={register}
+								error={errors.slug}
 							/>
 						</div>
-
-						<Controller
-							name="description"
-							control={control}
-							// defaultValue={}
-							render={({
-								field: { value, onChange },
-								fieldState: { error },
-							}) => (
-								<DynamicTextEditor
-									onChange={onChange}
-									value={value}
-									error={error}
-									placeholder="Description"
-								/>
-							)}
-							rules={{
-								validate: {
-									required: (v) =>
-										(v && stripHtml(v).result.length > 0) ||
-										'Description required',
-								},
-							}}
+						<Field
+							{...register('icon', { required: 'icon is required' })}
+							placeholder={'icon'}
+							error={errors.icon}
+							style={{ width: '31%' }}
 						/>
-
-						<Button>Update</Button>
-					</>
+					</div>
 				)}
+				<Controller
+					name="description"
+					control={control}
+					// defaultValue={}
+					render={({ field: { value, onChange }, fieldState: { error } }) => (
+						<DynamicTextEditor
+							onChange={onChange}
+							value={value}
+							error={error}
+							placeholder="Description"
+						/>
+					)}
+					rules={{
+						validate: {
+							required: (v) =>
+								(v && stripHtml(v).result.length > 0) || 'Description required',
+						},
+					}}
+				/>
+
+				<Button>Update</Button>
 			</form>
 		</Meta>
 	)
 }
-export default GenreEdit
+export default UserEdit

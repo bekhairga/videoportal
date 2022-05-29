@@ -9,12 +9,23 @@ import Heading from '@/components/ui/heading/Heading'
 import { useActors } from './useActors'
 
 const GenresList: FC = () => {
-	const { isLoading, handleSearch, searchTerm, data, deleteAsync } = useActors()
+	const {
+		isLoading,
+		handleSearch,
+		searchTerm,
+		data,
+		deleteAsync,
+		createAsync,
+	} = useActors()
 	return (
 		<Meta title="Actors">
 			<AdminNavigation />
 			<Heading title="Genres" />
-			<AdminHeader handleSearch={handleSearch} searchTerm={searchTerm} />
+			<AdminHeader
+				handleSearch={handleSearch}
+				searchTerm={searchTerm}
+				onClick={createAsync}
+			/>
 			<AdminTable
 				headerItems={['Name', 'Count Movies', 'Actions']}
 				tableItems={data || []}
