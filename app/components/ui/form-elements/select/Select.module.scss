@@ -1,0 +1,9 @@
+.selectContainer{
+  @apply relative mb-8 animate-fade;
+  > label {
+    @apply block;
+    > span{
+      @apply text-xs uppercase text-grey-600 block mb-1;
+    }
+  }
+}
