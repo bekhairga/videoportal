@@ -1,0 +1,21 @@
+@import '../../../assets/styles/variables.scss';
+.slider{
+  @apply relative mx-auto;
+  max-width: 1200px;
+  .slide{
+    @apply relative h-80 rounded-3xl overflow-hidden shadow-xl flex items-end;
+    @include fade-bg-gradient();
+    .image{
+      @apply image-like-bg;
+    }
+    .content{
+      @apply relative z-2 p-8;
+      .heading{
+        @apply text-white uppercase text-5xl font-semibold mb-1 text-shadow;
+      }
+      .subHeading{
+        @apply text-grey-300 font-medium uppercase mb-4 text-shadow;
+      }
+    }
+  }
+}

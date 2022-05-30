@@ -26,7 +26,6 @@ export const UserService = {
 		return axios.put<string>(getUsersUrl(`/${_id}`), data)
 	},
 	async deleteUser(_id: string) {
-		console.log('deleting')
 		return axios.delete<string>(getUsersUrl(`/${_id}`))
 	},
 }

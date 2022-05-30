@@ -119,6 +119,14 @@ const MovieEdit: FC = () => {
 									required: 'Please select at least one genre',
 								}}
 							/>
+							<Field
+								{...register('parameters.duration', {
+									required: 'Duration is required',
+								})}
+								placeholder={'Duration'}
+								error={errors.parameters?.duration}
+								style={{ width: '31%' }}
+							/>
 							<Controller
 								name="poster"
 								control={control}
