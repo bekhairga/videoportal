@@ -120,7 +120,7 @@ const MovieEdit: FC = () => {
 								}}
 							/>
 							<Field
-								{...register('parameters.duration', {
+								{...register('', {
 									required: 'Duration is required',
 								})}
 								placeholder={'Duration'}
