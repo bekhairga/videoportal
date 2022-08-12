@@ -1,6 +1,6 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
 import { convertMongoDate } from 'utils/date/convertMongoDate'
 import { toastError } from 'utils/toastError'
@@ -9,6 +9,8 @@ import {
 	IAdminTableItem,
 	ITableItem,
 } from '@/components/ui/admin-table/admin-table.interface'
+
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 
 import { MovieService } from '@/services/movie.service'
 import { UserService } from '@/services/user.service'
@@ -39,7 +41,7 @@ export const useUsers = () => {
 		}
 	)
 	const { mutateAsync: createAsync } = useMutation(
-		'create user',
+		convertStringToQueryKey('create user'),
 		() => UserService.createUser(),
 		{
 			onError: (error) => {
@@ -52,7 +54,7 @@ export const useUsers = () => {
 		}
 	)
 	const { mutateAsync: deleteAsync } = useMutation(
-		'delete user',
+		convertStringToQueryKey('delete user'),
 		(userId: string) => UserService.deleteUser(userId),
 		{
 			onError: (error) => {

@@ -1,11 +1,13 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
 import { getGenresList } from 'utils/movie/getGenresListEach'
 import { toastError } from 'utils/toastError'
 
 import { ITableItem } from '@/components/ui/admin-table/admin-table.interface'
+
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 
 import { MovieService } from '@/services/movie.service'
 
@@ -39,7 +41,7 @@ export const useMovies = () => {
 		}
 	)
 	const { mutateAsync: createAsync } = useMutation(
-		'create movie',
+		convertStringToQueryKey('create movie'),
 		() => MovieService.createMovie(),
 		{
 			onError: (error) => {
@@ -52,7 +54,7 @@ export const useMovies = () => {
 		}
 	)
 	const { mutateAsync: deleteAsync } = useMutation(
-		'delete movie',
+		convertStringToQueryKey('delete movie'),
 		(movieId: string) => MovieService.deleteMovie(movieId),
 		{
 			onError: (error) => {

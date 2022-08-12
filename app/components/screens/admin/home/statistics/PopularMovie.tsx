@@ -1,12 +1,13 @@
+import { useQuery } from '@tanstack/react-query'
 import cn from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
-import { useQuery } from 'react-query'
 
 import SkeletonLoader from '@/components/ui/SkeletonLoader'
 import SubHeading from '@/components/ui/heading/SubHeading'
 
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 import { IMovie } from '@/shared/types/movie.types'
 
 import { MovieService } from '@/services/movie.service'
@@ -17,7 +18,7 @@ import styles from '../../Admin.module.scss'
 
 const CountUsers: FC = () => {
 	const { isLoading, data: movie } = useQuery(
-		'Most popular movie',
+		convertStringToQueryKey('Most popular movie'),
 		() => MovieService.getMostPopularMovies(),
 		{ select: (data): IMovie => data[0] }
 	)
@@ -31,7 +32,6 @@ const CountUsers: FC = () => {
 					<>
 						<h3>Opened {movie.countOpened}</h3>
 						<Link href={getMovieUrl(movie.slug)}>
-							{console.log(movie)}
 							<a>
 								<Image
 									width={285}

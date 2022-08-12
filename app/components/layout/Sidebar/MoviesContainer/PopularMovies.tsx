@@ -1,8 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import { FC } from 'react'
-import { useQuery } from 'react-query'
 
 import SkeletonLoader from '@/components/ui/SkeletonLoader'
 
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 import { IMovie } from '@/shared/types/movie.types'
 
 import { MovieService } from '@/services/movie.service'
@@ -12,7 +13,7 @@ import { IMovieList } from './movie-list.interface'
 
 const PopularMovies: FC = () => {
 	const { isLoading, data: popularMovies } = useQuery(
-		'Popular movies in sidebar',
+		convertStringToQueryKey('Popular movies in sidebar'),
 		() => MovieService.getAll('')
 	)
 	return isLoading ? (

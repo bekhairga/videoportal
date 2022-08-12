@@ -1,10 +1,12 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
 import { toastError } from 'utils/toastError'
 
 import { ITableItem } from '@/components/ui/admin-table/admin-table.interface'
+
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 
 import { ActorService } from '@/services/actor.service'
 
@@ -34,7 +36,7 @@ export const useActors = () => {
 		}
 	)
 	const { mutateAsync: createAsync } = useMutation(
-		'create actor',
+		convertStringToQueryKey('create actor'),
 		() => ActorService.createActor(),
 		{
 			onError: (error) => {
@@ -47,7 +49,7 @@ export const useActors = () => {
 		}
 	)
 	const { mutateAsync: deleteAsync } = useMutation(
-		'delete actor',
+		convertStringToQueryKey('delete actor'),
 		(actorId: string) => ActorService.deleteActor(actorId),
 		{
 			onError: (error) => {

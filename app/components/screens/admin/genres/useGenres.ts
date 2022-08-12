@@ -1,6 +1,6 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
 import { convertMongoDate } from 'utils/date/convertMongoDate'
 import { toastError } from 'utils/toastError'
@@ -9,6 +9,8 @@ import {
 	IAdminTableItem,
 	ITableItem,
 } from '@/components/ui/admin-table/admin-table.interface'
+
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 
 import { GenreService } from '@/services/genre.service'
 
@@ -38,7 +40,7 @@ export const useGenres = () => {
 		}
 	)
 	const { mutateAsync: createAsync } = useMutation(
-		'create genre',
+		convertStringToQueryKey('create genre'),
 		() => GenreService.createGenre(),
 		{
 			onError: (error) => {
@@ -51,7 +53,7 @@ export const useGenres = () => {
 		}
 	)
 	const { mutateAsync: deleteAsync } = useMutation(
-		'delete genre',
+		convertStringToQueryKey('delete genre'),
 		(genreId: string) => GenreService.deleteGenre(genreId),
 		{
 			onError: (error) => {

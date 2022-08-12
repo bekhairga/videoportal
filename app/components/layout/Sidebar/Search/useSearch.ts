@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query'
 import { ChangeEvent, useState } from 'react'
-import { useQuery } from 'react-query'
 
 import { MovieService } from '@/services/movie.service'
 

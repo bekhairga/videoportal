@@ -1,9 +1,11 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form'
-import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
 import { getKeys } from 'utils/object/getKeys'
 import { toastError } from 'utils/toastError'
+
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 
 import { ActorService } from '@/services/actor.service'
 
@@ -30,7 +32,7 @@ export const useActorEdit = (setValue: UseFormSetValue<IActorEditInput>) => {
 		}
 	)
 	const { mutateAsync } = useMutation(
-		'update actor',
+		convertStringToQueryKey('update actor'),
 		(data: IActorEditInput) => ActorService.updateActor(actorId, data),
 		{
 			onError: (error) => {

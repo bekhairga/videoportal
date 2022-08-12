@@ -1,5 +1,6 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 import { IGenre } from '@/shared/types/movie.types'
 
 import { GenreService } from '@/services/genre.service'
@@ -10,7 +11,7 @@ import { IMenuItem } from '../menu.interface'
 
 export const usePopularGenres = () => {
 	const queryData = useQuery(
-		'popular genre menu',
+		convertStringToQueryKey('popular genre menu'),
 		() => GenreService.getAll(''),
 		{
 			select: ({ data }) =>

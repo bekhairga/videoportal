@@ -1,9 +1,11 @@
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form'
-import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
 import { getKeys } from 'utils/object/getKeys'
 import { toastError } from 'utils/toastError'
+
+import { convertStringToQueryKey } from '@/shared/queryKey.type'
 
 import { MovieService } from '@/services/movie.service'
 
@@ -30,7 +32,7 @@ export const useMovieEdit = (setValue: UseFormSetValue<IMovieEditInput>) => {
 		}
 	)
 	const { mutateAsync } = useMutation(
-		'update movie',
+		convertStringToQueryKey('update movie'),
 		(data: IMovieEditInput) => MovieService.updateMovie(movieId, data),
 		{
 			onError: (error) => {
